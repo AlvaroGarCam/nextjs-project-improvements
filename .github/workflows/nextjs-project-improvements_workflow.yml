@@ -87,9 +87,9 @@ jobs:
         run: |
           echo "Updating README.md..."
           if [ "${{ steps.read_result.outputs.cypress_outcome }}" = "failure" ]; then
-            echo "\n\nRESULTAT DELS ÚLTIMS TESTS\n\n![Test Badge](https://img.shields.io/badge/test-failure-red)" >> README.md
+            echo "RESULTAT DELS ÚLTIMS TESTS ![Test Badge](https://img.shields.io/badge/test-failure-red)" >> README.md
           else
-            echo "\n\nRESULTAT DELS ÚLTIMS TESTS\n\n![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)" >> README.md
+            echo "RESULTAT DELS ÚLTIMS TESTS ![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)" >> README.md
           fi
 
       - name: Commit updated README
@@ -103,3 +103,18 @@ jobs:
           git add README.md
           git commit -m "Update README.md with Cypress test results" || echo "No changes to commit"
           git push https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }} main
+
+  deploy_job:
+    needs: cypress_job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          vercel-project-id: ${{ secrets.PROJECT_ID }}
+          vercel-args: "--prod"
