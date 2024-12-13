@@ -29,6 +29,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Run Cypress tests
         uses: cypress-io/github-action@v4
         with:
@@ -39,7 +42,7 @@ jobs:
       - name: Save Cypress results to artifact
         run: |
           echo "Saving Cypress results..."
-          npx cypress run --spec 'spec: cypress/integration/1-my-tests/**/*.spec.js' > result.txt
+          npx cypress run --spec 'cypress/integration/1-my-tests/**/*.spec.js' > result.txt || echo "Cypress tests failed"
         continue-on-error: true
 
       - name: Upload Cypress artifact
