@@ -91,12 +91,10 @@ jobs:
           fi
 
       - name: Commit updated README
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git config --global user.email "alvgarcam@alu.edu.gva.es"
           git config --global user.name "AlvaroGarCam"
-          git remote set-url origin https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}
+          git remote set-url origin git@github.com:AlvaroGarCam/nextjs-project-improvements.git
           git remote -v
           git add README.md
           git commit -m "Update README.md with Cypress test results" || echo "No changes to commit"
