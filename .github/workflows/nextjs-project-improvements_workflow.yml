@@ -58,3 +58,42 @@ jobs:
         with:
           name: cypress-results
           path: result.txt
+
+  add_badge_job:
+    needs: cypress_job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Cypress artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: cypress-results
+
+      - name: Determine Cypress result
+        id: read_result
+        run: |
+          echo "Reading Cypress result..."
+          if grep -q "failure" result.txt; then
+            echo "::set-output name=cypress_outcome::failure"
+          else
+            echo "::set-output name=cypress_outcome::success"
+          fi
+
+      - name: Update README with badge
+        run: |
+          echo "Updating README.md..."
+          if [ "${{ steps.read_result.outputs.cypress_outcome }}" = "failure" ]; then
+            echo "\n\nRESULTAT DELS ÚLTIMS TESTS\n\n![Test Badge](https://img.shields.io/badge/test-failure-red)" >> README.md
+          else
+            echo "\n\nRESULTAT DELS ÚLTIMS TESTS\n\n![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)" >> README.md
+          fi
+
+      - name: Commit updated README
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions"
+          git add README.md
+          git commit -m "Update README.md with Cypress test results"
+          git push origin main
