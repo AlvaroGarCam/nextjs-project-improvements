@@ -65,6 +65,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
 
       - name: Download Cypress artifact
         uses: actions/download-artifact@v3
@@ -100,4 +102,4 @@ jobs:
           git remote -v
           git add README.md
           git commit -m "Update README.md with Cypress test results" || echo "No changes to commit"
-          git push origin main
+          git push https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }} main
