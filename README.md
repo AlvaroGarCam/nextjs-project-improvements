@@ -8,3 +8,4 @@ Example of nextjs project using Cypress.io
 \n\nRESULTAT DELS ÚLTIMS TESTS\n\n![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
 \n\nRESULTAT DELS ÚLTIMS TESTS\n\n![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
 RESULTAT DELS ÚLTIMS TESTS ![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
+RESULTAT DELS ÚLTIMS TESTS ![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
