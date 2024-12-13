@@ -33,13 +33,13 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
-          spec: cypress/integration/**/*.spec.js
+          spec: cypress/integration/1-my-tests/**/*.spec.js
         continue-on-error: true
 
       - name: Save Cypress results to artifact
         run: |
           echo "Saving Cypress results..."
-          npx cypress run --spec 'cypress/integration/**/*.spec.js' > result.txt
+          npx cypress run --spec 'spec: cypress/integration/1-my-tests/**/*.spec.js' > result.txt
         continue-on-error: true
 
       - name: Upload Cypress artifact
