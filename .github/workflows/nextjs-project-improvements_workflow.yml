@@ -65,8 +65,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Download Cypress artifact
         uses: actions/download-artifact@v3
@@ -93,11 +91,12 @@ jobs:
           fi
 
       - name: Commit updated README
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git config --global user.email "alvgarcam@alu.edu.gva.es"
           git config --global user.name "AlvaroGarCam"
-          git remote set-url origin git@github.com:AlvaroGarCam/nextjs-project-improvements.git
-          git remote -v
+          git remote set-url origin https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}
           git add README.md
           git commit -m "Update README.md with Cypress test results" || echo "No changes to commit"
           git push origin main
