@@ -74,4 +74,4 @@ En este proyecto hemos configurado varios workflows con los siguientes jobs:
 
 - **Actualización Dinámica**: Uso de workflows para mantener el archivo README.md siempre actualizado con información relevante sobre los resultados de los tests y las métricas del perfil.
 
----
+---\n\n![Metrics](https://github.com/AlvaroGarCam/AlvaroGarCam/nextjs-project-improvements/blob/main/github-metrics.svg)
