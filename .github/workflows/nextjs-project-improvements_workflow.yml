@@ -162,6 +162,8 @@ jobs:
           echo "\n\n![Metrics](https://github.com/${{ github.repository_owner }}/${{ github.repository }}/blob/main/github-metrics.svg)" >> README.md
           git config --global user.email "alvgarcam@alu.edu.gva.es"
           git config --global user.name "AlvaroGarCam"
+          git remote set-url origin https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}
+          git pull --rebase origin main
           git add README.md
           git commit -m "Update README.md with GitHub metrics" || echo "No changes to commit"
-          git push https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }} main
+          git push origin main
