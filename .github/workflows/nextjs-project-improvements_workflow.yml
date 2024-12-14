@@ -93,11 +93,6 @@ jobs:
           else
             echo "![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)" >> README.md
           fi
-
-      - name: Commit and push updated README
-        env:
-          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-        run: |
           git config --global user.email "alvgarcam@alu.edu.gva.es"
           git config --global user.name "AlvaroGarCam"
           git add README.md
