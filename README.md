@@ -77,3 +77,12 @@ En este proyecto hemos configurado varios workflows con los siguientes jobs:
 
 --------------------------------------------------------------------
 
+## Resultados de Métricas
+
+![Metrics](https://github.com/AlvaroGarCam/nextjs-project-improvements/blob/main/github-metrics.svg)
+
+## Resultados de los Últimos Tests
+
+RESULTAT DELS ÚLTIMS TESTS
+
+![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
