@@ -139,6 +139,10 @@ jobs:
 
   metrics_job:
     runs-on: ubuntu-latest
+    environment:
+      name: production
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -148,14 +152,14 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           user: ${{ github.repository_owner }}
-          template: "languages"
-          base: "header, activity, community, repositories"
+          template: "classic"
+          base: "header, activity, languages"
           config_timezone: "Europe/Madrid"
 
       - name: Update README with metrics
         run: |
           echo "Updating README.md with metrics..."
-          echo "![Metrics](https://github.com/${{ github.repository_owner }}/${{ github.repository }}/actions/workflows/nextjs-project-improvements_workflow.yml/badge.svg)" >> README.md
+          echo "\n\n![Metrics](https://github.com/${{ github.repository_owner }}/${{ github.repository }}/blob/main/github-metrics.svg)" >> README.md
           git config --global user.email "alvgarcam@alu.edu.gva.es"
           git config --global user.name "AlvaroGarCam"
           git add README.md
