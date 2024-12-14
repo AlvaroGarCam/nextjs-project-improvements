@@ -75,3 +75,4 @@ En este proyecto hemos configurado varios workflows con los siguientes jobs:
 - **Actualización Dinámica**: Uso de workflows para mantener el archivo README.md siempre actualizado con información relevante sobre los resultados de los tests y las métricas del perfil.
 \n\nRESULTAT DELS ÚLTIMS TESTS\n\n![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
 \n\nRESULTAT DELS ÚLTIMS TESTS\n\n![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
+\n\nRESULTAT DELS ÚLTIMS TESTS\n\n![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
