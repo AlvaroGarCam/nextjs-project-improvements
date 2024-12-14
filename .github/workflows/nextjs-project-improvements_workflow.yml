@@ -59,6 +59,41 @@ jobs:
           name: cypress-results
           path: result.txt
 
+  metrics_job:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate GitHub metrics
+        uses: lowlighter/metrics@latest
+        with:
+          filename: github-metrics.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_languages: yes
+          plugin_languages_ignored: >-
+            html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
+            gnuplot
+          plugin_languages_limit: 4
+
+      - name: Update README with metrics
+        run: |
+          echo "Updating README.md with metrics..."
+          sed -i '/## Resultados de Métricas/,$d' README.md
+          echo "## Resultados de Métricas" >> README.md
+          echo "![Metrics](github-metrics.svg)" >> README.md
+          git config --global user.email "alvgarcam@alu.edu.gva.es"
+          git config --global user.name "AlvaroGarCam"
+          git add README.md
+          git commit -m "Update README.md with static GitHub metrics" || echo "No changes to commit"
+          git pull --rebase origin main || (git rebase --abort && echo "Rebase failed; skipping pull step")
+          git push origin main || echo "Push failed; skipping push"
+
   add_badge_job:
     needs: [cypress_job, metrics_job]
     runs-on: ubuntu-latest
@@ -97,8 +132,7 @@ jobs:
           git config --global user.name "AlvaroGarCam"
           git add README.md
           git commit -m "Update README.md with Cypress test results" || echo "No changes to commit"
-          git fetch origin main
-          git rebase origin/main || (git rebase --abort && echo "Rebase failed; skipping rebase")
+          git pull --rebase origin main || (git rebase --abort && echo "Rebase failed; skipping rebase")
           git push origin main || echo "Push failed; skipping push"
 
   deploy_job:
@@ -133,39 +167,3 @@ jobs:
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
             -d text="$(echo -e "$JOB_RESULTS")"
-
-  metrics_job:
-    runs-on: ubuntu-latest
-    environment:
-      name: production
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Most used
-        uses: lowlighter/metrics@latest
-        with:
-          filename: github-metrics.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          base: ""
-          plugin_languages: yes
-          plugin_languages_ignored: >-
-            html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
-            gnuplot
-          plugin_languages_limit: 4
-
-      - name: Update README with metrics
-        run: |
-          echo "Updating README.md with metrics..."
-          sed -i '/## Resultados de Métricas/,$d' README.md
-          echo "## Resultados de Métricas" >> README.md
-          echo "![Metrics](github-metrics.svg)" >> README.md
-          git config --global user.email "alvgarcam@alu.edu.gva.es"
-          git config --global user.name "AlvaroGarCam"
-          git add README.md
-          git commit -m "Update README.md with static GitHub metrics" || echo "No changes to commit"
-          git fetch origin main
-          git rebase origin/main || (git rebase --abort && echo "Rebase failed; skipping pull step")
-          git push origin main || echo "Push failed; skipping push"
