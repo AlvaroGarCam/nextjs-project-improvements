@@ -136,6 +136,7 @@ jobs:
             -d text="$(echo -e "$JOB_RESULTS")"
 
   metrics_job:
+    needs: [linter_job, cypress_job]
     runs-on: ubuntu-latest
     environment:
       name: production
@@ -150,18 +151,20 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           user: ${{ github.repository_owner }}
-          template: "classic"
+          template: "languages"
           base: "header, activity, languages"
           config_timezone: "Europe/Madrid"
+          plugin_languages: "true"
 
       - name: Update README with metrics
         run: |
           echo "Updating README.md with metrics..."
+          # Agregamos las métricas al final del README.md
           echo "\n\n![Metrics](https://github.com/${{ github.repository_owner }}/${{ github.repository }}/blob/main/github-metrics.svg)" >> README.md
           git config --global user.email "alvgarcam@alu.edu.gva.es"
           git config --global user.name "AlvaroGarCam"
           git add README.md
-          git commit -m "Prepare for pull rebase" || echo "No changes to commit"
+          git commit -m "Update README.md with GitHub metrics" || echo "No changes to commit"
           git fetch origin main
-          git rebase origin/main || (git rebase --abort && echo "Rebase failed; skipping pull step")
-          git push origin main
+          git rebase origin/main || (git rebase --abort && echo "Rebase failed; skipping rebase")
+          git push origin main || echo "Push failed; skipping push"
