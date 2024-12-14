@@ -58,6 +58,7 @@ jobs:
         with:
           name: cypress-results
           path: result.txt
+
   add_badge_job:
     needs: [cypress_job, metrics_job]
     runs-on: ubuntu-latest
@@ -85,10 +86,12 @@ jobs:
       - name: Update README with badge
         run: |
           echo "Updating README.md with badge..."
+          sed -i '/## Resultados de los Últimos Tests/,$d' README.md
+          echo "## Resultados de los Últimos Tests" >> README.md
           if [ "${{ steps.read_result.outputs.cypress_outcome }}" = "failure" ]; then
-            echo "RESULTAT DELS ÚLTIMS TESTS![Test Badge](https://img.shields.io/badge/test-failure-red)" >> README.md
+            echo "![Test Badge](https://img.shields.io/badge/test-failure-red)" >> README.md
           else
-            echo "RESULTAT DELS ÚLTIMS TESTS![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)" >> README.md
+            echo "![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)" >> README.md
           fi
 
       - name: Commit and push updated README
