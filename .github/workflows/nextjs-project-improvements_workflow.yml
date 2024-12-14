@@ -58,9 +58,8 @@ jobs:
         with:
           name: cypress-results
           path: result.txt
-
   add_badge_job:
-    needs: cypress_job
+    needs: [cypress_job, metrics_job]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -87,22 +86,22 @@ jobs:
         run: |
           echo "Updating README.md with badge..."
           if [ "${{ steps.read_result.outputs.cypress_outcome }}" = "failure" ]; then
-            echo "RESULTAT DELS ÚLTIMS TESTS\n![Test Badge](https://img.shields.io/badge/test-failure-red)" >> README.md
+            echo "RESULTAT DELS ÚLTIMS TESTS![Test Badge](https://img.shields.io/badge/test-failure-red)" >> README.md
           else
-            echo "RESULTAT DELS ÚLTIMS TESTS\n![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)" >> README.md
+            echo "RESULTAT DELS ÚLTIMS TESTS![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)" >> README.md
           fi
 
-      - name: Commit updated README
+      - name: Commit and push updated README
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git config --global user.email "alvgarcam@alu.edu.gva.es"
           git config --global user.name "AlvaroGarCam"
-          git remote set-url origin https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}
-          git pull --rebase origin main
           git add README.md
           git commit -m "Update README.md with Cypress test results" || echo "No changes to commit"
-          git push origin main
+          git fetch origin main
+          git rebase origin/main || (git rebase --abort && echo "Rebase failed; skipping rebase")
+          git push origin main || echo "Push failed; skipping push"
 
   deploy_job:
     needs: cypress_job
