@@ -72,5 +72,6 @@ En este proyecto hemos configurado varios workflows con los siguientes jobs:
 
 ## Resultados de los Últimos Tests
 ![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
+![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
 
 ![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
