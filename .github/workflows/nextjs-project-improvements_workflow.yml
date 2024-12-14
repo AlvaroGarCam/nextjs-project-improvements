@@ -124,6 +124,11 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     steps:
+      - name: Ensure jq is installed
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
       - name: Send Telegram Notification
         run: |
           echo "Preparing Telegram notification..."
