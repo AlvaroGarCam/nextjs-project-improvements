@@ -28,7 +28,7 @@ En este proyecto hemos configurado varios workflows con los siguientes jobs:
 
 - **Descripción**: Publica automáticamente la aplicación en la plataforma Vercel tras un push exitoso.
 
-  ### `notification_job`
+### `notification_job`
 
 - **Descripción**: Nos envía una notificación a Telegram con el resultado de la ejecución de nuestro workflow.
 
