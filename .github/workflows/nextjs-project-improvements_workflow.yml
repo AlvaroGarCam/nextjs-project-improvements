@@ -124,6 +124,9 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     steps:
+      - name: Debug Telegram Chat ID
+        run: |
+          echo "Chat ID is: '${{ secrets.TELEGRAM_CHAT_ID }}'"
       - name: Send Telegram Notification
         run: |
           echo "Preparing Telegram notification..."
