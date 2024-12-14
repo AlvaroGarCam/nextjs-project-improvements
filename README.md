@@ -21,3 +21,4 @@ RESULTAT DELS ÚLTIMS TESTS ![Test Badge](https://img.shields.io/badge/tested%20
 RESULTAT DELS ÚLTIMS TESTS ![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
 RESULTAT DELS ÚLTIMS TESTS ![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
 RESULTAT DELS ÚLTIMS TESTS ![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
+RESULTAT DELS ÚLTIMS TESTS ![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
