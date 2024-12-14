@@ -149,7 +149,7 @@ jobs:
       - name: Most used
         uses: lowlighter/metrics@latest
         with:
-          filename: metrics.plugin.languages.svg
+          filename: github-metrics.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           plugin_languages: yes
@@ -161,11 +161,13 @@ jobs:
       - name: Update README with metrics
         run: |
           echo "Updating README.md with metrics..."
-          echo "![Metrics](https://github.com/${{ github.repository_owner }}/${{ github.repository }}/blob/main/github-metrics.svg)" >> README.md
+          sed -i '/## Resultados de Métricas/,$d' README.md
+          echo "## Resultados de Métricas" >> README.md
+          echo "![Metrics](github-metrics.svg)" >> README.md
           git config --global user.email "alvgarcam@alu.edu.gva.es"
           git config --global user.name "AlvaroGarCam"
           git add README.md
-          git commit -m "Prepare for pull rebase" || echo "No changes to commit"
+          git commit -m "Update README.md with static GitHub metrics" || echo "No changes to commit"
           git fetch origin main
           git rebase origin/main || (git rebase --abort && echo "Rebase failed; skipping pull step")
-          git push origin main
+          git push origin main || echo "Push failed; skipping push"
