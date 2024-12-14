@@ -87,3 +87,4 @@ RESULTAT DELS ÚLTIMS TESTS
 
 ![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
 \n\n![Metrics](https://github.com/AlvaroGarCam/AlvaroGarCam/nextjs-project-improvements/blob/main/github-metrics.svg)
+\n\n![Metrics](https://github.com/AlvaroGarCam/AlvaroGarCam/nextjs-project-improvements/blob/main/github-metrics.svg)
