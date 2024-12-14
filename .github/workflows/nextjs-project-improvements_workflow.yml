@@ -87,9 +87,9 @@ jobs:
         run: |
           echo "Updating README.md with badge..."
           if [ "${{ steps.read_result.outputs.cypress_outcome }}" = "failure" ]; then
-            echo "\n\nRESULTAT DELS ÚLTIMS TESTS\n\n![Test Badge](https://img.shields.io/badge/test-failure-red)" >> README.md
+            echo "RESULTAT DELS ÚLTIMS TESTS![Test Badge](https://img.shields.io/badge/test-failure-red)" >> README.md
           else
-            echo "\n\nRESULTAT DELS ÚLTIMS TESTS\n\n![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)" >> README.md
+            echo "RESULTAT DELS ÚLTIMS TESTS![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)" >> README.md
           fi
 
       - name: Commit updated README
@@ -164,4 +164,4 @@ jobs:
           git config --global user.name "AlvaroGarCam"
           git add README.md
           git commit -m "Update README.md with GitHub metrics" || echo "No changes to commit"
-          git push https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository_owner }}/${{ github.repository }}
+          git push https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }} main
