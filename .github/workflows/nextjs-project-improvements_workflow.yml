@@ -85,11 +85,11 @@ jobs:
 
       - name: Update README with badge
         run: |
-          echo "Updating README.md..."
+          echo "Updating README.md with badge..."
           if [ "${{ steps.read_result.outputs.cypress_outcome }}" = "failure" ]; then
-            echo "RESULTAT DELS ÚLTIMS TESTS ![Test Badge](https://img.shields.io/badge/test-failure-red)" >> README.md
+            echo "\n\nRESULTAT DELS ÚLTIMS TESTS\n\n![Test Badge](https://img.shields.io/badge/test-failure-red)" >> README.md
           else
-            echo "RESULTAT DELS ÚLTIMS TESTS ![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)" >> README.md
+            echo "\n\nRESULTAT DELS ÚLTIMS TESTS\n\n![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)" >> README.md
           fi
 
       - name: Commit updated README
@@ -136,3 +136,28 @@ jobs:
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
             -d text="$(echo -e "$JOB_RESULTS")"
+
+  metrics_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate GitHub metrics
+        uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: ${{ github.repository_owner }}
+          template: "languages"
+          base: "header, activity, community, repositories"
+          config_timezone: "Europe/Madrid"
+
+      - name: Update README with metrics
+        run: |
+          echo "Updating README.md with metrics..."
+          echo "![Metrics](https://github.com/${{ github.repository_owner }}/${{ github.repository }}/actions/workflows/nextjs-project-improvements_workflow.yml/badge.svg)" >> README.md
+          git config --global user.email "alvgarcam@alu.edu.gva.es"
+          git config --global user.name "AlvaroGarCam"
+          git add README.md
+          git commit -m "Update README.md with GitHub metrics" || echo "No changes to commit"
+          git push https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository_owner }}/${{ github.repository }}
