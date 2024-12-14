@@ -50,14 +50,6 @@ En este proyecto hemos configurado varios workflows con los siguientes jobs:
 
 - Tanto el `add_badge_job` como el `metrics_job` actualizan dinámicamente el README.md para mostrar información relevante sobre los resultados de los tests y las métricas del perfil.
 
-## Resultados de Métricas
-
-![Metrics](https://github.com/AlvaroGarCam/nextjs-project-improvements/blob/main/github-metrics.svg)
-
-## Resultados de los Últimos Tests
-
-![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
-
 ## Conceptos Tratados
 
 ### Workflows y Jobs
@@ -74,4 +66,10 @@ En este proyecto hemos configurado varios workflows con los siguientes jobs:
 
 - **Actualización Dinámica**: Uso de workflows para mantener el archivo README.md siempre actualizado con información relevante sobre los resultados de los tests y las métricas del perfil.
 
-\n\n![Metrics](https://github.com/AlvaroGarCam/AlvaroGarCam/nextjs-project-improvements/blob/main/github-metrics.svg)
+## Resultados de Métricas
+
+![Metrics](https://github.com/AlvaroGarCam/nextjs-project-improvements/blob/main/github-metrics.svg)
+
+## Resultados de los Últimos Tests
+
+![Test Badge](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)
