@@ -161,8 +161,8 @@ jobs:
           echo "\n\n![Metrics](https://github.com/${{ github.repository_owner }}/${{ github.repository }}/blob/main/github-metrics.svg)" >> README.md
           git config --global user.email "alvgarcam@alu.edu.gva.es"
           git config --global user.name "AlvaroGarCam"
-          git remote set-url origin https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}
-          git pull --rebase origin main
           git add README.md
           git commit -m "Prepare for pull rebase" || echo "No changes to commit"
+          git fetch origin main
+          git rebase origin/main || (git rebase --abort && echo "Rebase failed; skipping pull step")
           git push origin main
