@@ -1,5 +1,4 @@
 # Next.js Project Improvements
-asdsaadassa
 Este proyecto incluye diversas mejoras utilizando GitHub Actions para automatizar tareas clave en el desarrollo y mantenimiento del código.
 
 ## Introducción: ¿Qué son las GitHub Actions?
